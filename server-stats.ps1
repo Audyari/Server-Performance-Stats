@@ -47,12 +47,12 @@ Write-Host "Disk Tersedia    : $diskFree GB"
 Write-Host ""
 
 # --- 5. Mengambil data 5 proses teratas (CPU) secara real-time. ---
-Write-Host "### 5. 5 PROSES TERATAS (PENGGUNAAN CPU) ###" -ForegroundColor Yellow
+Write-Host "### 5. PROSES TERATAS (PENGGUNAAN CPU) ###" -ForegroundColor Yellow
 Get-Process | Sort-Object CPU -Descending | Select-Object -First 5 | Format-Table Name, CPU, Id -AutoSize
 Write-Host ""
 
 # --- 6. Mengambil data 5 proses teratas (MEMORI) secara real-time. ---
-Write-Host "### 6. 5 PROSES TERATAS (PENGGUNAAN MEMORI) ###" -ForegroundColor Yellow
+Write-Host "### 6. PROSES TERATAS (PENGGUNAAN MEMORI) ###" -ForegroundColor Yellow
 Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 5 | Format-Table Name, @{Name = 'Memory(MB)'; Expression = { [math]::Round($_.WorkingSet / 1MB, 2) } }, Id -AutoSize
 Write-Host ""
 
