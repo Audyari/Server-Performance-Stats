@@ -20,7 +20,7 @@ $cpuUsage = (Get-CimInstance Win32_Processor | Measure-Object -Property LoadPerc
 Write-Host "Total Penggunaan CPU: $cpuUsage%"
 Write-Host ""
 
-# --- 3. PENGGUNAAN MEMORI ---
+# --- 3. Mengambil data penggunaan memori secara real-time. ---
 Write-Host "### 3. PENGGUNAAN MEMORI ###" -ForegroundColor Yellow
 $os = Get-CimInstance Win32_OperatingSystem
 $memTotal = [math]::Round($os.TotalVisibleMemorySize / 1MB, 2)
@@ -33,7 +33,7 @@ Write-Host "Memori Terpakai  : $memUsed GB ($memPercent%)"
 Write-Host "Memori Tersisa   : $memFree GB"
 Write-Host ""
 
-# --- 4. PENGGUNAAN DISK (C:) ---
+# --- 4. Mengambil data penggunaan disk (C:) secara real-time. ---
 Write-Host "### 4. PENGGUNAAN DISK (C:) ###" -ForegroundColor Yellow
 $disk = Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'"
 $diskTotal = [math]::Round($disk.Size / 1GB, 2)
@@ -46,12 +46,12 @@ Write-Host "Disk Terpakai    : $diskUsed GB ($diskPercent%)"
 Write-Host "Disk Tersedia    : $diskFree GB"
 Write-Host ""
 
-# --- 5. 5 PROSES TERATAS (CPU) ---
+# --- 5. Mengambil data 5 proses teratas (CPU) secara real-time. ---
 Write-Host "### 5. 5 PROSES TERATAS (PENGGUNAAN CPU) ###" -ForegroundColor Yellow
 Get-Process | Sort-Object CPU -Descending | Select-Object -First 5 | Format-Table Name, CPU, Id -AutoSize
 Write-Host ""
 
-# --- 6. 5 PROSES TERATAS (MEMORI) ---
+# --- 6. Mengambil data 5 proses teratas (MEMORI) secara real-time. ---
 Write-Host "### 6. 5 PROSES TERATAS (PENGGUNAAN MEMORI) ###" -ForegroundColor Yellow
 Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 5 | Format-Table Name, @{Name = 'Memory(MB)'; Expression = { [math]::Round($_.WorkingSet / 1MB, 2) } }, Id -AutoSize
 Write-Host ""
